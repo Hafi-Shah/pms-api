@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace pms_api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserDetailsByRoleController : Controller
@@ -43,7 +43,9 @@ namespace pms_api.Controllers
                                         CountryName = reader.GetString(reader.GetOrdinal("COUNTRY_NAME")),
                                         CompanyEmail = reader.GetString(reader.GetOrdinal("COMPANY_EMAIL")),
                                         ContactNum = reader.GetString(reader.GetOrdinal("CONTACT")),
+                                        Password = reader.GetString(reader.GetOrdinal("COMPANY_PASSWORD")),
                                         ProfilePic = reader.GetString(reader.GetOrdinal("PROFILE_PIC"))
+                                        
                                     };
                                 }
 

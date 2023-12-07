@@ -26,7 +26,7 @@
         public string? CompanyEmail { get; set; }
         public string? ContactNum { get; set; }
         public string? ProfilePic { get; set; }
-        public string? Password { get; set; }
+        public string? CompanyPassword { get; set; }
         
 
     }

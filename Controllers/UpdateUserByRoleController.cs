@@ -15,14 +15,15 @@ namespace pms_api.Controllers
     public class UpdateUserByRoleController : Controller
     {
 
-        [HttpPut("UpdateDataByRoleUser")]
+
+        [HttpPut("UpdateUserData")]
         public dynamic UpdateDataByRoleUser(int id, string role, UpdateDataByRoleUserRes userModel)
         {
             try
             {
                 using (SqlConnection connection = DatabaseConnection.getConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("UPDATE_DATA_BY_ROLE", connection))
+                    using (SqlCommand command = new SqlCommand("UPDATE_USER_DATA", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@UserId", id);
@@ -44,7 +45,7 @@ namespace pms_api.Controllers
                             command.Parameters.AddWithValue("@MartialStatus", userModel.MartialStatus);
                             command.Parameters.AddWithValue("@UserType", userModel.UserType);
                             //command.Parameters.AddWithValue("@UserSkills", userModel.UserSkills);
-                           // command.Parameters.AddWithValue("@CoverPic", userModel.CoverPic);
+                            // command.Parameters.AddWithValue("@CoverPic", userModel.CoverPic);
 
 
                             // Add other user-specific parameters here
@@ -67,18 +68,20 @@ namespace pms_api.Controllers
         }
 
 
-        //[Route("api/[controller]")]
-        [HttpPut("UpdateDataByRoleCompany")]
-        public dynamic UpdateDataByRoleCompany( string role, UpdateDataByRoleCompanyRes companyModel)
+      
+        [HttpPut("UpdateCompanyData")]
+        public dynamic UpdateDataByRoleCompany(string role, UpdateDataByRoleCompanyRes companyModel)
         {
             try
             {
+                RegisterCompanyResponse response = new RegisterCompanyResponse();
+                bool isSuccess = false;
+                string resMessage = "Updated successfully";
                 using (SqlConnection connection = DatabaseConnection.getConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("UPDATE_DATA_BY_ROLE", connection))
+                    using (SqlCommand command = new SqlCommand("UPDATE_COMPANY_DATA", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        //command.Parameters.AddWithValue("@UserId", id);
                         command.Parameters.AddWithValue("@Role", role);
 
                         // Add other parameters from the request object based on role
@@ -91,16 +94,23 @@ namespace pms_api.Controllers
                             command.Parameters.AddWithValue("@CompanyLocation", companyModel.CompanyLocation);
                             command.Parameters.AddWithValue("@Country", companyModel.CountryName);
                             command.Parameters.AddWithValue("@CompanyEmail", companyModel.CompanyEmail);
-                            command.Parameters.AddWithValue("@CompanyPassword", companyModel.Password);
+                            command.Parameters.AddWithValue("@CompanyPassword", companyModel.CompanyPassword);
                             command.Parameters.AddWithValue("@ProfilePic", companyModel.ProfilePic);
-
+                            if (command.ExecuteNonQuery() > 0)
+                            {
+                                resMessage = "Company updated successfully";
+                                isSuccess = true;
+                            }
+                            else
+                            {
+                                resMessage = "Error while updating record.";
+                                isSuccess = false;
+                            }
                         }
 
-                        // Execute the stored procedure
-                        command.ExecuteNonQuery();
-
-                        // You can return a success message or whatever is appropriate for your application
-                        return Ok("Company Data updated successfully");
+                        response.isSuccess = isSuccess;
+                        response.Message = resMessage;
+                        return Ok(response);
                     }
                 }
             }

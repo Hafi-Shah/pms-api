@@ -39,7 +39,8 @@ namespace pms_api.Controllers
                                     CountryName = reader.GetString(reader.GetOrdinal("COUNTRY_NAME")),
                                     CompanyEmail = reader.GetString(reader.GetOrdinal("COMPANY_EMAIL")),
                                     ContactNum = reader.GetString(reader.GetOrdinal("CONTACT")),
-                                    ProfilePic = reader.GetString(reader.GetOrdinal("PROFILE_PIC"))
+                                    ProfilePic = reader.GetString(reader.GetOrdinal("PROFILE_PIC")),
+                                    CompanyPassword = reader.GetString(reader.GetOrdinal("COMPANY_PASSWORD"))
                                 };
                                 connection.Close();
                                 return Ok(companyDetail);
