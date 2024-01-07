@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace pms_api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class SkillsController : Controller

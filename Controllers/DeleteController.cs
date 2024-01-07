@@ -32,11 +32,11 @@ namespace pms_api.Controllers
                     }
                 }
 
-                return Ok(new { success = true, message = "Deletion successful" });
+                return Ok(new { success = true, message = "Account Deleted Successful" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = "An error occurred while deleting data by role: " + ex.Message });
+                return StatusCode(500, new { success = false, message = "An error occurred while deleting data " + ex.Message });
             }
         }
     }
