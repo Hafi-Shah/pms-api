@@ -36,42 +36,41 @@
             public int UserId { get; set; }
             public string? FirstName { get; set; }
             public string? LastName { get; set; }
-            public string? Title { get; set; }
             public string? UserType { get; set; }
-            //public string? UserSkills { get; set; }
+            public List<string> UserSkills { get; set; } = new List<string> { };
             public string? Gender { get; set; }
             public string? MartialStatus { get; set; }
-            public string? Dob { get; set; }
+            public DateTime? Dob { get; set; }
+            public string? City { get; set; }
             public string? Email { get; set; }
-            public string? Password { get; set; }
-            public string? TotalExperience { get; set; }
+            public int? TotalExperience { get; set; }
             public string? About { get; set; }
-            public string? CurrentCompany { get; set; }
             public string? ContactNum { get; set; }
             public string? ProfilePic { get; set; }
             public string? CoverPic { get; set; }
-            public string? Role { get; set; }
         }
 
     public class UpdateDataByRoleUserRes
     {
-       
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? Title { get; set; }
-        public string? UserType { get; set; }
-        //public string? UserSkills { get; set; }
-        public string? Gender { get; set; }
-        public string? MartialStatus { get; set; }
-        public string? Dob { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
-        public string? TotalExperience { get; set; }
-        public string? About { get; set; }
-        public string? CurrentCompany { get; set; }
-        public string? ContactNum { get; set; }
-        public string? ProfilePic { get; set; }
-        //public string? CoverPic { get; set; }
-       
+
+        public string FirstName { get; set; }//
+        public string LastName { get; set; }//
+        public string Email { get; set; }//
+        public string Password { get; set; }//
+        public int YearlyExp { get; set; }//
+        public string About { get; set; }//
+        public int StatusId { get; set; }//
+        public List<int> UserSkills { get; set; } = new List<int> { };
+        public DateTime Dob { get; set; }//
+        public int GenderId { get; set; }//
+        public int JobTitleId { get; set; }//
+        public string Contact { get; set; }//
+        public string ProfilePic { get; set; }//
+        public string CoverImg { get; set; } //
+        public int UserTypeId { get; set; }
+        public string Role { get; set; }
+
+        public string City { get; set; }
+
     }
 }

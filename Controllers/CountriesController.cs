@@ -15,7 +15,7 @@ namespace pms_api.Controllers
         {
             try
             {
-                List<GetCountriesRes> countries = new List<GetCountriesRes>();
+                List<GetCountries> countries = new List<GetCountries>();
 
                 using (SqlConnection connection = DatabaseConnection.getConnection())
                 {
@@ -28,7 +28,7 @@ namespace pms_api.Controllers
                             {
                                 while (reader.Read())
                                 {
-                                    GetCountriesRes Country = new GetCountriesRes()
+                                    GetCountries Country = new GetCountries()
                                     {
                                         Id = Convert.ToInt32(reader["Id"]),
                                         Name = reader["Name"].ToString()

@@ -37,15 +37,7 @@ namespace pms_api.Controllers
                             command.Parameters.AddWithValue("@LastName", userModel.LastName);
                             command.Parameters.AddWithValue("@Email", userModel.Email);
                             command.Parameters.AddWithValue("@Password", userModel.Password);
-                            command.Parameters.AddWithValue("@Title", userModel.Title);
-                            command.Parameters.AddWithValue("@Dob", userModel.Dob);
-                            command.Parameters.AddWithValue("@TotalExp", userModel.Email);
-                            command.Parameters.AddWithValue("@About", userModel.About);
-                            command.Parameters.AddWithValue("@Gender", userModel.Gender);
-                            command.Parameters.AddWithValue("@MartialStatus", userModel.MartialStatus);
-                            command.Parameters.AddWithValue("@UserType", userModel.UserType);
-                            //command.Parameters.AddWithValue("@UserSkills", userModel.UserSkills);
-                            // command.Parameters.AddWithValue("@CoverPic", userModel.CoverPic);
+                           
 
 
                             // Add other user-specific parameters here

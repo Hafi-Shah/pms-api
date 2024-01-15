@@ -17,6 +17,7 @@ namespace pms_api.Controllers
         {
             try
             {
+                int userId = 0;
                 RegUserReq response = new RegUserReq();
 
 
@@ -30,24 +31,43 @@ namespace pms_api.Controllers
                         command.Parameters.AddWithValue("@LastName", request.LastName);
                         command.Parameters.AddWithValue("@Email", request.Email);
                         command.Parameters.AddWithValue("@Password", request.Password);
-                        command.Parameters.AddWithValue("@YearlyExp", request.YearlyExp);
-                        command.Parameters.AddWithValue("@About", request.About);
-                        command.Parameters.AddWithValue("@StatusId", request.StatusId);
-                        command.Parameters.AddWithValue("@Skills", string.Join(",", request.Skills)); // Assuming Skills is a list of strings
-                        command.Parameters.AddWithValue("@Dob", request.Dob);
-                        command.Parameters.AddWithValue("@GenderId", request.GenderId);
-                        command.Parameters.AddWithValue("@JobTitleId", request.JobTitleId);
                         command.Parameters.AddWithValue("@Contact", request.Contact);
-                        command.Parameters.AddWithValue("@ProfilePic", request.ProfilePic);
+                        command.Parameters.AddWithValue("@Dob", request.Dob);
+                        command.Parameters.AddWithValue("@UserTypeId", request.UserTypeId);
+                        command.Parameters.AddWithValue("@YearlyExp", request.YearlyExp);
+                        command.Parameters.AddWithValue("@GenderId", request.GenderId);
+                        command.Parameters.AddWithValue("@City", request.City);
+                        command.Parameters.AddWithValue("@About", request.About);
                         command.Parameters.AddWithValue("@CoverImg", request.CoverImg);
-
+                        command.Parameters.AddWithValue("@ProfilePic", request.ProfilePic);
+                        command.Parameters.AddWithValue("@MaritalStatusId", request.maritalStatusId);
+                      
+                        // Add output parameter for the last inserted ID
+                        SqlParameter outputParameter = new SqlParameter("@LastUserID", SqlDbType.Int);
+                        outputParameter.Direction = ParameterDirection.Output;
+                        command.Parameters.Add(outputParameter);
                         command.ExecuteNonQuery();
+                        // Retrieve the value of the output parameter
+                        userId = Convert.ToInt32(outputParameter.Value);
+                       
 
+                    }
+                    foreach (var item in request.Skills)
+                    {
+                        using (SqlCommand command = new SqlCommand("PRC_ADD_USER_SKILL", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.AddWithValue("@UserId", userId);
+                            command.Parameters.AddWithValue("@Role", request.Role);
+                            command.Parameters.AddWithValue("@SkillId", item);
+
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
 
-
-                return Ok(new { success = true, message = "User Registered Successfully", user = response });
+                return Ok(new { success = true, message = "User Registered Successfully" });
 
             }
             catch (Exception ex)
