@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace pms_api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserDetailsByRoleController : Controller
@@ -100,7 +100,7 @@ namespace pms_api.Controllers
                             }
                         }
                     }
-                    return Ok(new{ success = true, userResponses});
+                    return Ok(userResponses);
                 }
                 else
                 {

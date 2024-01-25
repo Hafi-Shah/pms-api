@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using pms_api.Data;
 using pms_api.Models.Requests;
@@ -8,6 +9,7 @@ using System.Data.SqlClient;
 
 namespace pms_api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AnnouncementController : ControllerBase

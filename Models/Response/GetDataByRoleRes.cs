@@ -37,6 +37,7 @@
             public string? FirstName { get; set; }
             public string? LastName { get; set; }
             public string? UserType { get; set; }
+            public string? Password { get; set; }
             public List<string> UserSkills { get; set; } = new List<string> { };
             public string? Gender { get; set; }
             public string? MartialStatus { get; set; }
@@ -52,25 +53,22 @@
 
     public class UpdateDataByRoleUserRes
     {
-
+        public int UserId { get; set; }
         public string FirstName { get; set; }//
         public string LastName { get; set; }//
         public string Email { get; set; }//
         public string Password { get; set; }//
         public int YearlyExp { get; set; }//
         public string About { get; set; }//
-        public int StatusId { get; set; }//
-        public List<int> UserSkills { get; set; } = new List<int> { };
+        public List<int> Skills { get; set; }//
         public DateTime Dob { get; set; }//
         public int GenderId { get; set; }//
-        public int JobTitleId { get; set; }//
         public string Contact { get; set; }//
         public string ProfilePic { get; set; }//
         public string CoverImg { get; set; } //
         public int UserTypeId { get; set; }
-        public string Role { get; set; }
-
         public string City { get; set; }
+        public int maritalStatusId { get; set; }
 
     }
 }

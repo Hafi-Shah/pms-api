@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace pms_api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UpdateUserByRoleController : Controller
@@ -17,40 +17,69 @@ namespace pms_api.Controllers
 
 
         [HttpPut("UpdateUserData")]
-        public dynamic UpdateDataByRoleUser(int id, string role, UpdateDataByRoleUserRes userModel)
+        public dynamic UpdateDataByRoleUser(string role, UpdateDataByRoleUserRes userModel)
         {
             try
             {
+                int userId = 0;
                 using (SqlConnection connection = DatabaseConnection.getConnection())
                 {
                     using (SqlCommand command = new SqlCommand("UPDATE_USER_DATA", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserId", id);
+
                         command.Parameters.AddWithValue("@Role", role);
 
                         // Add other parameters from the request object based on role
                         if (role == "user")
                         {
-
+                            command.Parameters.AddWithValue("@UserId", userModel.UserId);
                             command.Parameters.AddWithValue("@FirstName", userModel.FirstName);
                             command.Parameters.AddWithValue("@LastName", userModel.LastName);
                             command.Parameters.AddWithValue("@Email", userModel.Email);
                             command.Parameters.AddWithValue("@Password", userModel.Password);
-                           
-
-
-                            // Add other user-specific parameters here
+                            command.Parameters.AddWithValue("@Contact", userModel.Contact);
+                            command.Parameters.AddWithValue("@Dob", userModel.Dob);
+                            command.Parameters.AddWithValue("@UserTypeId", userModel.UserTypeId);
+                            command.Parameters.AddWithValue("@YearlyExp", userModel.YearlyExp);
+                            command.Parameters.AddWithValue("@GenderId", userModel.GenderId);
+                            command.Parameters.AddWithValue("@MaritalStatusId", userModel.maritalStatusId);
+                            command.Parameters.AddWithValue("@City", userModel.City);
+                            command.Parameters.AddWithValue("@About", userModel.About);
+                            command.Parameters.AddWithValue("@CoverImg", userModel.CoverImg);
+                            command.Parameters.AddWithValue("@ProfilePic", userModel.ProfilePic);
+                            command.ExecuteNonQuery();
                         }
 
-
-                        // Execute the stored procedure
-                        command.ExecuteNonQuery();
-
-                        // You can return a success message or whatever is appropriate for your application
-                        return Ok("User Data updated successfully");
                     }
+                    if (userModel.Skills != null && userModel.Skills.Count > 0)
+                    {
+                        using (SqlCommand command = new SqlCommand("PRC_DELETE_USER_SKILL", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.AddWithValue("@UserId", userModel.UserId);
+                            command.Parameters.AddWithValue("@Role", role);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    foreach (var item in userModel.Skills)
+                    {
+                        using (SqlCommand command = new SqlCommand("PRC_ADD_USER_SKILL", connection))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.AddWithValue("@UserId", userModel.UserId);
+                            command.Parameters.AddWithValue("@Role", role);
+                            command.Parameters.AddWithValue("@SkillId", item);
+
+                            command.ExecuteNonQuery();
+
+                        }
+                    }
+
                 }
+                return Ok(new { success = true, message = "User update Successfully" });
             }
             catch (Exception ex)
             {
@@ -60,7 +89,7 @@ namespace pms_api.Controllers
         }
 
 
-      
+
         [HttpPut("UpdateCompanyData")]
         public dynamic UpdateDataByRoleCompany(string role, UpdateDataByRoleCompanyRes companyModel)
         {

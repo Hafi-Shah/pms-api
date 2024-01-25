@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using pms_api.Data;
 using System;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 
 namespace pms_api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DeleteController : ControllerBase

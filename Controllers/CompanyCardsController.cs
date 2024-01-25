@@ -3,11 +3,9 @@ using pms_api.Data;
 using pms_api.Models.Response;
 using System.Data.SqlClient;
 using System.Data;
-using Microsoft.AspNetCore.Authorization;
 
 namespace pms_api.Controllers
 {
-    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CompanyCardsController : Controller
