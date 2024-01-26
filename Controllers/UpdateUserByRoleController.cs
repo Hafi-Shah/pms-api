@@ -21,7 +21,7 @@ namespace pms_api.Controllers
         {
             try
             {
-                int userId = 0;
+               
                 using (SqlConnection connection = DatabaseConnection.getConnection())
                 {
                     using (SqlCommand command = new SqlCommand("UPDATE_USER_DATA", connection))
